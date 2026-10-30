@@ -8,14 +8,14 @@ mevcut ekranın üstüne çizerek anlatmak için. Tarayıcı / beyaz tahta modu 
 | Dosya | Ne |
 |--|--|
 | `index.html` | Tüm çizim: canvas, hız-bazlı değişken kalınlık. Inline CSS/JS, bağımlılık yok. |
-| `main.js` | Electron: her bağlı ekrana bir tam ekran şeffaf `alwaysOnTop` pencere + global hotkey (kullanıcı değiştirebilir) + toggle'da temizle + menü çubuğu ikonu. |
+| `main.js` | Electron: her bağlı ekrana bir tam ekran şeffaf `alwaysOnTop` pencere + global hotkey + toggle'da temizle + menü çubuğu ikonu. |
 | `preload.js` | `window.electronAPI` köprüsü (hide, onClear, sync/onSync, focusMe). |
-| `kisayol.html` + `kisayol-preload.js` | Menü çubuğundan açılan kısayol değiştirme penceresi. Kısayol `userData/ayarlar.json`'da (güncellemede korunur). Pencere açıkken genel kısayol kapalı, kapanınca geri gelir. |
-| `tray/trayTemplate*.png` | Menü çubuğu ikonu (template: macOS açık/koyu boyar). Menü yalnız: Kısayolu değiştir… (yanında geçerli kısayol) ve Çık. Menüden çizim açılmaz, bilerek (Mert, 2026-10-10): çizim yalnız kısayolla. |
+| `kisayol.html` + `kisayol-preload.js` | Menü çubuğundan açılan kısayol penceresi. Kısayol `userData/ayarlar.json`'da (güncellemede korunur). Pencere açıkken genel kısayol kapalı, kapanınca geri gelir. |
+| `tray/trayTemplate*.png` | Menü çubuğu ikonu (template: macOS açık/koyu boyar). Menü yalnız: Kısayolu değiştir… (yanında geçerli kısayol) ve Çık. Menüden çizim açılmaz, bilerek (Mert): çizim yalnız kısayolla. |
 
 - Ekranda arayüz yok, bilerek: araç çubuğu çizim alanını kapatıyor, tıklamaları yiyordu. Geri ekleme.
 - Kalem tek renk, her zeminde kırmızı (`index.html` → `const color`). Renk paleti bilerek yok.
-- Silme yok, bilerek (2026-10-10, Mert): silgi, `C` temizle ve silgi kısayolu kaldırıldı. Açınca çizilir, kapatınca gider; yalnız `Cmd+Z` (son çizgi) kaldı. Geri ekleme.
+- Silme yok, bilerek (Mert): silgi ve `C` temizle yok; yalnız `Cmd+Z` (son çizgi). Geri ekleme.
 - `index.html` `window.electronAPI` varsa overlay modu (şeffaf), yoksa beyaz tahta modu.
 
 ### Çoklu ekran
@@ -48,11 +48,7 @@ Küçük nokta (artı değil). Koyu/şeffaf zeminde beyaz, beyaz zeminde siyah.
 ## Çizgi hissi
 
 "Çizgi çok kalın / çok ince / geç tepki veriyor" → yalnız `index.html` en üstteki
-`TUNING` objesini oyna:
-- `base` dinlenmedeki kalınlık
-- `vMax` bu hızda en inceye iner
-- `thinning` hız etkisinin gücü (0..1)
-- `streamline` akıcılık (büyük = pürüzsüz ama gecikmeli)
+`TUNING` objesini oyna; alanların açıklaması kodda.
 
 ## Build ve test
 
@@ -72,4 +68,4 @@ npm run dist         # dist/mac-arm64/BasitCizim.app
 
 ## Arama dışı
 
-`node_modules/`, `dist/`
+`dist/`
